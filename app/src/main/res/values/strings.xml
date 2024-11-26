@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">Floralia</string>
+    <string name="list">List</string>
+    <string name="grid">Grid</string>
+    <string name="flowers_name">Flower Name</string>
+    <string name="latin_name">Latin Name of Flower</string>
+    <string name="flower_meaning">Meaning of Flower</string>
+    <string name="flower_origin">Flower Origin</string>
+    <string-array name="data_name">
+        <item>Aster</item>
+        <item>Camellia</item>
+        <item>Carnation</item>
+        <item>Cherry Blossom</item>
+        <item>Chrysan</item>
+        <item>Clematis</item>
+        <item>Cymbidium</item>
+        <item>Dahlia</item>
+        <item>Freesia</item>
+        <item>Gardenia</item>
+        <item>Iris</item>
+        <item>Jasmine</item>
+        <item>Lavender</item>
+        <item>Lily</item>
+        <item>Marigold</item>
+        <item>Peony</item>
+        <item>Poppy</item>
+        <item>Rose</item>
+        <item>Sunflower</item>
+        <item>Tulip</item>
+    </string-array>
+
+    <string-array name="latin_name">
+        <item>Aster amellus</item>
+        <item>Camellia japonica</item>
+        <item>Dianthus caryophyllus</item>
+        <item>Prunus serrulata</item>
+        <item>Chrysanthemum morifolium</item>
+        <!-- Tambahkan nama latin lainnya -->
+    </string-array>
+
+    <string-array name="flower_meaning">
+        <item>A flower with beautiful colors.</item>
+        <item>Elegant and noble flower.</item>
+        <item>Symbol of love and passion.</item>
+        <!-- Tambahkan deskripsi untuk setiap bunga -->
+    </string-array>
+
+    <string-array name="flower_origin">
+        <item>Asia</item>
+        <item>Europe</item>
+        <item>America</item>
+        <!-- Tambahkan sesuai bunga -->
+    </string-array>
+
+    <integer-array name="data_photo">
+        <item>@drawable/aster</item>
+        <item>@drawable/camellia</item>
+        <item>@drawable/carnation</item>
+        <item>@drawable/cherry_blossom</item>
+        <item>@drawable/chrysan</item>
+        <item>@drawable/clematis</item>
+        <item>@drawable/cymbidium</item>
+        <item>@drawable/dahlia</item>
+        <item>@drawable/freesia</item>
+        <item>@drawable/gardenia</item>
+        <item>@drawable/iris</item>
+        <item>@drawable/jasmine</item>
+        <item>@drawable/lavender</item>
+        <item>@drawable/lily</item>
+        <item>@drawable/marigold</item>
+        <item>@drawable/peony</item>
+        <item>@drawable/poppy</item>
+        <item>@drawable/rose</item>
+        <item>@drawable/sunflower</item>
+        <item>@drawable/tulip</item>
+    </integer-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
