@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#bde0fe"
     tools:context=".ContentActivity">
 
     <FrameLayout
@@ -15,9 +16,10 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#123456"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+        android:fontFamily="@font/rimons"
+        android:background="#f8f9fa"
+        app:itemIconTint="#ffafcc"
+        app:itemTextColor="#ffafcc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/navigation"/>
 

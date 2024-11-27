@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#bde0fe"
     tools:context=".HomeFragment"
     android:orientation="vertical">
 
@@ -36,8 +37,9 @@
         android:id="@+id/textView_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to the Floral Reverie Catalog!"
-        android:textSize="20sp"
+        android:text="Welcome to the Floralia Catalog!"
+        android:fontFamily="@font/rimons"
+        android:textSize="23sp"
         android:textColor="@android:color/black"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"/>

@@ -14,7 +14,7 @@ public class FlowerDetailFragment {
         list.add(new Flower("Clematis", "Clematis vitalba", "Asia, Eropa", "Creativity, mental strength, intellect", R.drawable.clematis));
         list.add(new Flower("Cymbidium", "Cymbidium", "Asia Tropis", "Luxury, grace, and respect", R.drawable.cymbidium));
         list.add(new Flower("Dahlia", "Dahlia pinnata", "Meksiko, Amerika Tengah", "Inner strength, dignity, and creativity", R.drawable.dahlia));
-        list.add(new Flower("Freesia", "Freesia", "Afrika Selatan", "Purity, innocence, and trust", R.drawable.freesia));
+        list.add(new Flower("Freesia", "Freesia", "Afrika Selatan", "Purity, innocence, and trust", R.drawable.freesiawhite));
         list.add(new Flower("Gardenia", "Gardenia jasminoides", "Asia, Afrika", "Refinement, secret love, and joy", R.drawable.gardenia));
         list.add(new Flower("Iris", "Iris germanica", "Eropa, Asia, Afrika Utara", "Wisdom, valor, and faith", R.drawable.iris));
         list.add(new Flower("Jasmine", "Jasminum", "Asia Selatan, Afrika", "Grace, purity, and sensuality", R.drawable.jasmine));
