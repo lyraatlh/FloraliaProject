@@ -1,100 +1,98 @@
 package com.example.floraliaproject;
 
-import android.content.res.TypedArray;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView rvFlowers;
-    private final ArrayList<Flower> list = new ArrayList<>();
+
+    private EditText edtUsername, edtPassword, edtConfirmPassword;
+    private Button btnAction;
+    private TextView switchMode;
+    private DatabaseHelper databaseHelper;
+    private boolean isLoginMode = true; // Menyimpan mode login atau register
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        rvFlowers = findViewById(R.id.rv_flowers);
-        rvFlowers.setHasFixedSize(true);
+        // Inisialisasi komponen UI dan helper database
+        databaseHelper = new DatabaseHelper(this);
 
-        list.addAll(getListFlowers());
-        showRecyclerList();
+        edtUsername = findViewById(R.id.edtUsername);
+        edtPassword = findViewById(R.id.edtPassword);
+        edtConfirmPassword = findViewById(R.id.edtConfirmPassword);
+        btnAction = findViewById(R.id.btnAction);
+        switchMode = findViewById(R.id.switchMode);
+
+        updateUI(); // Mengupdate UI sesuai dengan mode (login/register)
+
+        // Set klik listener untuk tombol action (Login atau Register)
+        btnAction.setOnClickListener(v -> {
+            String username = edtUsername.getText().toString().trim();
+            String password = edtPassword.getText().toString().trim();
+            String confirmPassword = edtConfirmPassword.getText().toString().trim();
+
+            if (isLoginMode) {
+                // Login logic
+                if (databaseHelper.checkUser(username, password)) {
+                    Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, ContentActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // Register logic
+                if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                    Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                } else if (databaseHelper.isUsernameTaken(username)) {
+                    Toast.makeText(this, "Username already taken", Toast.LENGTH_SHORT).show();
+                } else if (!password.equals(confirmPassword)) {
+                    Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                } else {
+                    long result = databaseHelper.addUser(username, password);
+                    if (result > 0) {
+                        Toast.makeText(this, "Registration successful! Please login.", Toast.LENGTH_SHORT).show();
+                        switchToLoginMode();
+                    } else {
+                        Toast.makeText(this, "Registration failed. Try again.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        // Set klik listener untuk switch mode (antara login dan register)
+        switchMode.setOnClickListener(v -> {
+            isLoginMode = !isLoginMode;
+            updateUI();
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_list) {
-            rvFlowers.setLayoutManager(new LinearLayoutManager(this));
-            Toast.makeText(this, "Tampilan diubah ke daftar", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.action_grid) {
-            rvFlowers.setLayoutManager(new GridLayoutManager(this, 2));
-            Toast.makeText(this, "Tampilan diubah ke grid", Toast.LENGTH_SHORT).show();
+    // Fungsi untuk update tampilan UI sesuai mode (login/register)
+    private void updateUI() {
+        if (isLoginMode) {
+            btnAction.setText("Login");
+            switchMode.setText("Don't have an account? Register");
+            edtConfirmPassword.setVisibility(View.GONE);
+        } else {
+            btnAction.setText("Register");
+            switchMode.setText("Already have an account? Login");
+            edtConfirmPassword.setVisibility(View.VISIBLE);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
-    private ArrayList<Flower> getListFlowers() {
-        String[] dataName = getResources().getStringArray(R.array.data_name);
-        String[] dataLatinName = getResources().getStringArray(R.array.latin_name);
-        String[] dataMeaning = getResources().getStringArray(R.array.flower_meaning);
-        String[] dataOrigin = getResources().getStringArray(R.array.flower_origin);
-        TypedArray dataPhoto = getResources().obtainTypedArray(R.array.data_photo);
-
-        ArrayList<Flower> listFlower = new ArrayList<>();
-
-        int length = Math.min(dataName.length, Math.min(dataMeaning.length, Math.min(dataLatinName.length, Math.min(dataOrigin.length, Math.min(dataMeaning.length, dataPhoto.length())))));
-        for (int i = 0; i < length; i++) {
-            Flower flower = new Flower();
-            flower.setName(dataName[i]);
-            flower.setDescription(dataMeaning[i]);
-            flower.setLatinName(dataLatinName[i]);
-            flower.setOrigin(dataOrigin[i]);
-            flower.setMeaning(dataMeaning[i]);
-            flower.setPhoto(dataPhoto.getResourceId(i, -1));
-            listFlower.add(flower);
-        }
-        dataPhoto.recycle();
-        return listFlower;
-    }
-
-    private void showRecyclerList() {
-        rvFlowers.setLayoutManager(new LinearLayoutManager(this));
-        ListFlowerAdapter adapter = new ListFlowerAdapter(list);
-        rvFlowers.setAdapter(adapter);
-
-        adapter.setOnItemClickCallback(this::showSelectedFlower);
-    }
-
-    private void showSelectedFlower(Flower flower) {
-        // Ketika gambar bunga dipilih, tampilkan fragment dengan detail bunga
-        FlowerDetailFragment detailFragment = FlowerDetailFragment.newInstance(
-                flower.getLatinName(),
-                flower.getMeaning(),
-                flower.getOrigin()
-        );
-
-        // Ganti fragment dengan FlowerDetailFragment
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, detailFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    // Fungsi untuk switch ke mode login setelah registrasi berhasil
+    private void switchToLoginMode() {
+        isLoginMode = true;
+        updateUI();
     }
 }

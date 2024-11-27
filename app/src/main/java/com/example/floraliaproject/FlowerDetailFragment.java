@@ -1,77 +1,31 @@
 package com.example.floraliaproject;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import java.util.ArrayList;
 
-import androidx.fragment.app.Fragment;
+public class FlowerDetailFragment {
 
-public class FlowerDetailFragment extends Fragment {
-
-    private static final String ARG_LATIN_NAME = "latin_name";
-    private static final String ARG_MEANING = "meaning";
-    private static final String ARG_ORIGIN = "origin";
-
-    private String latinName;
-    private String meaning;
-    private String origin;
-
-    public FlowerDetailFragment() {
-        // Required empty public constructor
-    }
-
-    public static FlowerDetailFragment newInstance(String latinName, String meaning, String origin) {
-        FlowerDetailFragment fragment = new FlowerDetailFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_LATIN_NAME, latinName);
-        args.putString(ARG_MEANING, meaning);
-        args.putString(ARG_ORIGIN, origin);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            latinName = getArguments().getString(ARG_LATIN_NAME);
-            meaning = getArguments().getString(ARG_MEANING);
-            origin = getArguments().getString(ARG_ORIGIN);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_flower_detail, container, false);
-
-        TextView tvLatinName = view.findViewById(R.id.tvLatinName);
-        TextView tvMeaning = view.findViewById(R.id.tvMeaning);
-        TextView tvOrigin = view.findViewById(R.id.tvOrigin);
-
-        tvLatinName.setText("Latin Name: " + latinName);
-        tvMeaning.setText("Meaning: " + meaning);
-        tvOrigin.setText("Origin: " + origin);
-
-        return view;
-    }
-
-    private void showSelectedFlower(Flower flower) {
-        if (flower == null) return;  // Pastikan flower tidak null
-
-        FlowerDetailFragment detailFragment = FlowerDetailFragment.newInstance(
-                flower.getLatinName(),
-                flower.getMeaning(),
-                flower.getOrigin()
-        );
-
-        if (getActivity() != null) {
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, detailFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
+    public static ArrayList<Flower> getListData() {
+        ArrayList<Flower> list = new ArrayList<>();
+        list.add(new Flower("Aster", "Aster amellus", "Amerika Utara, Asia", "Elegance, patience, and subtle beauty", R.drawable.aster));
+        list.add(new Flower("Camellia", "Camellia japonica", "Asia Timur", "Admiration, gratitude, and perfection", R.drawable.camellia));
+        list.add(new Flower("Carnation", "Dianthus caryophyllus", "Eropa, Asia", "Distinction, fascination, and love", R.drawable.carnation));
+        list.add(new Flower("Cherry Blossom", "Prunus serrulata", "Jepang, Asia Timur", "Beauty, transience, and fleeting life", R.drawable.cherry_blossom));
+        list.add(new Flower("Chrysan", "Chrysanthemum morifolium", "Asia, Eropa Timur", "Longevity, loyalty, and joy", R.drawable.chrysan));
+        list.add(new Flower("Clematis", "Clematis vitalba", "Asia, Eropa", "Creativity, mental strength, intellect", R.drawable.clematis));
+        list.add(new Flower("Cymbidium", "Cymbidium", "Asia Tropis", "Luxury, grace, and respect", R.drawable.cymbidium));
+        list.add(new Flower("Dahlia", "Dahlia pinnata", "Meksiko, Amerika Tengah", "Inner strength, dignity, and creativity", R.drawable.dahlia));
+        list.add(new Flower("Freesia", "Freesia", "Afrika Selatan", "Purity, innocence, and trust", R.drawable.freesia));
+        list.add(new Flower("Gardenia", "Gardenia jasminoides", "Asia, Afrika", "Refinement, secret love, and joy", R.drawable.gardenia));
+        list.add(new Flower("Iris", "Iris germanica", "Eropa, Asia, Afrika Utara", "Wisdom, valor, and faith", R.drawable.iris));
+        list.add(new Flower("Jasmine", "Jasminum", "Asia Selatan, Afrika", "Grace, purity, and sensuality", R.drawable.jasmine));
+        list.add(new Flower("Lavender", "Lavandula", "Mediterania", "Serenity, calmness, and devotion", R.drawable.lavender));
+        list.add(new Flower("Lily", "Lilium", "Asia, Eropa, Amerika Utara", "Elegance, purity, and rebirth", R.drawable.lily));
+        list.add(new Flower("Marigold", "Tagetes", "Meksiko, Amerika Selatan", "Warmth, creativity, and remembrance", R.drawable.marigold));
+        list.add(new Flower("Peony", "Paeonia", "Asia Timur", "Prosperity, honor, and good fortune", R.drawable.peony));
+        list.add(new Flower("Poppy", "Papaver", "Eropa, Asia, Amerika Utara", "Rest, peace, and remembrance", R.drawable.poppy));
+        list.add(new Flower("Rose", "Rosa", "Asia, Eropa, Amerika", "Love, romance, and affection", R.drawable.rose));
+        list.add(new Flower("Sunflower", "Helianthus annuus", "Amerika Utara", "Happiness, warmth, and loyalty", R.drawable.sunflower));
+        list.add(new Flower("Tulip", "Tulipa", "Asia Tengah", "Perfect love and deep emotions", R.drawable.tulip));
+        return list;
     }
 }

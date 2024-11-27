@@ -4,8 +4,8 @@
     <string name="grid">Grid</string>
     <string name="flowers_name">Flower Name</string>
     <string name="latin_name">Latin Name of Flower</string>
-    <string name="flower_meaning">Meaning of Flower</string>
-    <string name="flower_origin">Flower Origin</string>
+    <string name="meaning">Meaning of Flower</string>
+    <string name="origin">Flower Origin</string>
     <string-array name="data_name">
         <item>Aster</item>
         <item>Camellia</item>
@@ -29,27 +29,73 @@
         <item>Tulip</item>
     </string-array>
 
-    <string-array name="latin_name">
+    <string-array name="data_latin_name">
         <item>Aster amellus</item>
         <item>Camellia japonica</item>
         <item>Dianthus caryophyllus</item>
         <item>Prunus serrulata</item>
         <item>Chrysanthemum morifolium</item>
-        <!-- Tambahkan nama latin lainnya -->
+        <item>Clematis vitalba</item>
+        <item>Cymbidium</item>
+        <item>Dahlia pinnata</item>
+        <item>Freesia</item>
+        <item>Gardenia jasminoides</item>
+        <item>Iris germanica</item>
+        <item>Jasminum</item>
+        <item>Lavandula</item>
+        <item>Lilium</item>
+        <item>Tagetes</item>
+        <item>Paeonia</item>
+        <item>Papaver</item>
+        <item>Rosa</item>
+        <item>Helianthus annuus</item>
+        <item>Tulipa</item>
     </string-array>
 
-    <string-array name="flower_meaning">
-        <item>A flower with beautiful colors.</item>
-        <item>Elegant and noble flower.</item>
-        <item>Symbol of love and passion.</item>
-        <!-- Tambahkan deskripsi untuk setiap bunga -->
+    <string-array name="data_meaning">
+        <item>Elegance, patience, and subtle beauty</item>
+        <item>Admiration, gratitude, and perfection</item>
+        <item>Distinction, fascination, and love</item>
+        <item>Beauty, transience, and fleeting life</item>
+        <item>Longevity, loyalty, and joy</item>
+        <item>Creativity, mental strength, intellect</item>
+        <item>Luxury, grace, and respecty</item>
+        <item>Inner strength, dignity, and creativity</item>
+        <item>Purity, innocence, and trust</item>
+        <item>Refinement, secret love, and joy</item>
+        <item>Wisdom, valor, and faith</item>
+        <item>Grace, purity, and sensuality</item>
+        <item>Serenity, calmness, and devotion</item>
+        <item>Elegance, purity, and rebirth</item>
+        <item>Warmth, creativity, and remembrance</item>
+        <item>Prosperity, honor, and good fortune</item>
+        <item>Rest, peace, and remembrance</item>
+        <item>Love, romance, and affection</item>
+        <item>Happiness, warmth, and loyalty</item>
+        <item>Perfect love and deep emotions</item>
     </string-array>
 
-    <string-array name="flower_origin">
-        <item>Asia</item>
-        <item>Europe</item>
-        <item>America</item>
-        <!-- Tambahkan sesuai bunga -->
+    <string-array name="data_origin">
+        <item>Amerika Utara, Asia</item>
+        <item>Asia Timur</item>
+        <item>Eropa, Asia</item>
+        <item>Jepang, Asia Timur</item>
+        <item>Asia, Eropa Timur</item>
+        <item>Asia, Eropa</item>
+        <item>Asia Tropis</item>
+        <item>Meksiko, Amerika Tengah</item>
+        <item>Afrika Selatan</item>
+        <item>Asia, Afrika</item>
+        <item>Eropa, Asia, Afrika Utara</item>
+        <item>Asia Selatan, Afrika</item>
+        <item>Mediterania</item>
+        <item>Asia, Eropa, Amerika Utara</item>
+        <item>Meksiko, Amerika Selatan</item>
+        <item>Asia Timur</item>
+        <item>Eropa, Asia, Amerika Utara</item>
+        <item>Asia, Eropa, Amerika</item>
+        <item>Amerika Utara</item>
+        <item>Asia Tengah</item>
     </string-array>
 
     <integer-array name="data_photo">
@@ -74,6 +120,5 @@
         <item>@drawable/sunflower</item>
         <item>@drawable/tulip</item>
     </integer-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

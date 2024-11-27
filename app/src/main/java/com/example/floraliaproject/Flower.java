@@ -4,12 +4,29 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Flower implements Parcelable {
-    private String name;
-    private String description;
     private int photo;
-    private String origin;
+    private String name;
     private String latinName;
     private String meaning;
+    private String origin;
+
+    public Flower(String name, String latinName, String origin, String meaning, Integer photo) {
+        this.photo = photo;
+        this.name = name;
+        this.latinName = latinName;
+        this.meaning = meaning;
+        this.origin = origin;
+    }
+
+    public Flower() {}
+
+    public int getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(int photo) {
+        this.photo = photo;
+    }
 
     public String getName() {
         return name;
@@ -17,22 +34,6 @@ public class Flower implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
     }
 
     public String getLatinName() {
@@ -51,27 +52,12 @@ public class Flower implements Parcelable {
         this.meaning = meaning;
     }
 
-    public int getPhoto() {
-        return photo;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setPhoto(int photo) {
-        this.photo = photo;
-    }
-
-    public Flower() {}
-
-    protected Flower(Parcel in) {
-        name = in.readString();
-        description = in.readString();
-        photo = in.readInt();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(description);
-        dest.writeInt(photo);
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
     @Override
@@ -79,10 +65,27 @@ public class Flower implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Flower> CREATOR = new Creator<Flower>() {
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.photo);
+        dest.writeString(this.name);
+        dest.writeString(this.latinName);
+        dest.writeString(this.meaning);
+        dest.writeString(this.origin);
+    }
+
+    protected Flower(Parcel in) {
+        this.photo = in.readInt();
+        this.name = in.readString();
+        this.latinName = in.readString();
+        this.meaning = in.readString();
+        this.origin = in.readString();
+    }
+
+    public static final Parcelable.Creator<Flower> CREATOR = new Parcelable.Creator<Flower>() {
         @Override
-        public Flower createFromParcel(Parcel in) {
-            return new Flower(in);
+        public Flower createFromParcel(Parcel source) {
+            return new Flower(source);
         }
 
         @Override

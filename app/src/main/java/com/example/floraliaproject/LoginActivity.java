@@ -16,27 +16,23 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnAction;
     private TextView switchMode;
     private DatabaseHelper databaseHelper;
-    private boolean isLoginMode = true; // Default to login mode
+    private boolean isLoginMode = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize DatabaseHelper
         databaseHelper = new DatabaseHelper(this);
 
-        // Initialize Views
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword);
         btnAction = findViewById(R.id.btnAction);
         switchMode = findViewById(R.id.switchMode);
 
-        // Set up initial UI for login
         updateUI();
 
-        // Button Action: Login or Register
         btnAction.setOnClickListener(v -> {
             String username = edtUsername.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
