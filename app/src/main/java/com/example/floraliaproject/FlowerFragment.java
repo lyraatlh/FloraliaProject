@@ -48,7 +48,8 @@ public class FlowerFragment extends Fragment {
 
     private void setLayoutManager(boolean isGrid) {
         if (isGrid) {
-            rvFlowers.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 5, RecyclerView.HORIZONTAL, false);
+            rvFlowers.setLayoutManager(layoutManager);
         } else {
             rvFlowers.setLayoutManager(new LinearLayoutManager(getContext()));
         }
