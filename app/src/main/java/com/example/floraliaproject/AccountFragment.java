@@ -1,8 +1,6 @@
 package com.example.floraliaproject;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,19 +8,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.io.InputStream;
-import java.net.URL;
-
 public class AccountFragment extends Fragment {
 
     private ImageView ivProfilePicture;
-    private TextView tvProfileName, tvProfileBio, tvFollowersCount, tvFollowingCount;
-    private Button btnEditProfile;
+    private TextView tvProfileName, tvProfileBio;
+    private Button btnEditProfile, btnFavorites, btnSettings, btnAbout, btnLogout;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -33,32 +27,29 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        // Initialize views
+        // Inisialisasi komponen UI
         ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
         tvProfileName = view.findViewById(R.id.tvProfileName);
         tvProfileBio = view.findViewById(R.id.tvProfileBio);
-        tvFollowersCount = view.findViewById(R.id.tvFollowersCount);
-        tvFollowingCount = view.findViewById(R.id.tvFollowingCount);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        btnFavorites = view.findViewById(R.id.btnFavorites);
+        btnSettings = view.findViewById(R.id.btnSettings);
+        btnAbout = view.findViewById(R.id.btnAbout);
+        btnLogout = view.findViewById(R.id.btnLogout);
 
-        // Load user data (This can be fetched from a database or API)
-        tvProfileName.setText("Jill Valentine");
-        tvProfileBio.setText("I am a UX/UI Designer.");
-        tvFollowersCount.setText("1.5K");
-        tvFollowingCount.setText("507");
+        tvProfileName.setText("bluebskyy");
+        tvProfileBio.setText("\uD83C\uDF38 Flower lover with a passion for nature's beauty. Always chasing blooms, capturing their magic, and finding joy in every petal. \uD83C\uDF3F✨");
 
-        // Load profile picture from URL (or local path)
-        String imageUrl = "https://yourimageurl.com/path/to/image.jpg"; // Replace with actual URL
-        new DownloadImageTask(ivProfilePicture).execute(imageUrl);
-
-        // Button to edit profile
-        btnEditProfile.setOnClickListener(v -> showEditProfileDialog());
+        btnEditProfile.setOnClickListener(v -> openEditProfileFragment());
+        btnFavorites.setOnClickListener(v -> openFavorites());
+        btnSettings.setOnClickListener(v -> openSettings());
+        btnAbout.setOnClickListener(v -> openAbout());
+        btnLogout.setOnClickListener(v -> logout());
 
         return view;
     }
 
-    private void showEditProfileDialog() {
-        // Logic for showing an edit profile dialog or navigating to an edit screen
+    private void openEditProfileFragment() {
         EditProfileFragment editProfileFragment = new EditProfileFragment();
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
@@ -67,32 +58,18 @@ public class AccountFragment extends Fragment {
                 .commit();
     }
 
-    // AsyncTask to download and set image in ImageView
-    private static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        private ImageView imageView;
+    private void openFavorites() {
+    }
 
-        public DownloadImageTask(ImageView imageView) {
-            this.imageView = imageView;
-        }
+    private void openSettings() {
 
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-            String imageUrl = urls[0];
-            Bitmap bitmap = null;
-            try {
-                InputStream inputStream = new URL(imageUrl).openStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
+    }
 
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            if (result != null) {
-                imageView.setImageBitmap(result);
-            }
-        }
+    private void openAbout() {
+
+    }
+
+    private void logout() {
+
     }
 }

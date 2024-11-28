@@ -1,115 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e9ecef"
-    tools:context=".AccountFragment">
+    android:background="#f8f9fa"
+    android:padding="16dp">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#f8f9fa"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingBottom="16dp">
 
-        <LinearLayout
+        <!-- Foto Profil -->
+        <ImageView
+            android:id="@+id/ivProfilePicture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/user"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/tvProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:id="@+id/tvProfileBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your bio goes here..."
+            android:layout_gravity="center"
+            android:textSize="14sp"
+            android:layout_marginBottom="20dp" />
+
+        <Button
+            android:id="@+id/btnEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:text="Edit Profile"
+            android:backgroundTint="#ffc8dd"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="20dp" />
 
-            <!-- Profile Picture -->
-            <ImageView
-                android:id="@+id/ivProfilePicture"
-                android:layout_width="115dp"
-                android:layout_height="115dp"
-                android:src="@drawable/person"
-                android:scaleType="centerCrop"
-                android:layout_marginBottom="12dp" />
+        <Button
+            android:id="@+id/btnFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Favorites"
+            android:backgroundTint="#bde0fe"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="20dp" />
 
-            <!-- Username -->
-            <TextView
-                android:id="@+id/tvProfileName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User Name"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_marginBottom="4dp" />
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:backgroundTint="#a2d2ff"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="20dp" />
 
-            <!-- Bio -->
-            <TextView
-                android:id="@+id/tvProfileBio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="A short bio goes here..."
-                android:textSize="14sp"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_marginBottom="16dp" />
+        <Button
+            android:id="@+id/btnAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="About Account"
+            android:backgroundTint="#cdb4db"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="20dp" />
 
-            <!-- Edit Profile Button -->
-            <Button
-                android:id="@+id/btnEditProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit Profile"
-                android:backgroundTint="#ffc8dd"
-                android:textColor="#212529"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_marginBottom="20dp" />
-
-            <!-- Stats Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginBottom="20dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_marginEnd="16dp">
-                    <TextView
-                        android:id="@+id/tvFollowersCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1.5K"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:text="Followers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_marginEnd="16dp">
-                    <TextView
-                        android:id="@+id/tvFollowingCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="507"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:text="Posts"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
-</FrameLayout>
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:backgroundTint="#ffafcc"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</ScrollView>

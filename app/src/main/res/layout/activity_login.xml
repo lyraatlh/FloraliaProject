@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#bde0fe"
+    android:background="#f8f9fa"
 
     android:padding="16dp"
     tools:context=".LoginActivity">
@@ -50,7 +50,7 @@
         android:id="@+id/btnAction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#f8f9fa"
+        android:backgroundTint="#ffc8dd"
         android:textColor="#343a40"
         android:text="Login"
         android:fontFamily="@font/roboto_medium"

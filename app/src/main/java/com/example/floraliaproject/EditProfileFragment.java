@@ -30,8 +30,6 @@ public class EditProfileFragment extends Fragment {
         btnSave = view.findViewById(R.id.btnSave);
 
         btnSave.setOnClickListener(v -> {
-            // Logic to save updated profile details
-            // You can save it to a database or shared preferences
         });
 
         return view;

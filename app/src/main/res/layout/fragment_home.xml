@@ -1,51 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e9ecef"
-    tools:context=".HomeFragment"
-    android:orientation="vertical">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBar_id"
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
-
-        <ImageView
-            android:id="@+id/programmer_id"
-            android:layout_width="match_parent"
-            android:layout_height="229dp"
-            android:padding="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/floral_reverie" />
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout_id"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@color/white"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/black"
-        app:tabMode="fixed"
-        app:tabTextColor="@color/white" />
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FAF9F9">
 
     <TextView
-        android:id="@+id/textView_welcome"
+        android:id="@+id/tv_home_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to the Floralia Catalog!"
-        android:fontFamily="@font/rimons"
-        android:textSize="23sp"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"/>
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager_id"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:text="Rekomendasi Bunga untuk Anda"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_flowers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp" />
 </LinearLayout>
