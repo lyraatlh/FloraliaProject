@@ -3,4 +3,4 @@
 ![Floralia3](https://github.com/user-attachments/assets/d3a8c901-3b03-4877-8744-24ccc64c8fe6)
 ![Floralia4](https://github.com/user-attachments/assets/88f9aac9-e8a4-43ba-a589-0f4b762df021)
 ![Floralia5](https://github.com/user-attachments/assets/93b22830-ad13-4efb-a04c-9c1826de40d0)
-![Floralia6](https://github.com/user-attachments/assets/402a97d6-fbe8-4556-a582-c83c4be4a098)
+![Floralia6](https://github.com/user-attachments/assets/d00c6f26-319a-4f14-b4e9-a17b2f53694d)
