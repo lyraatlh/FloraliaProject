@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +31,25 @@ public class EditProfileFragment extends Fragment {
         btnSave = view.findViewById(R.id.btnSave);
 
         btnSave.setOnClickListener(v -> {
+            String name = etName.getText().toString().trim();
+            String bio = etBio.getText().toString().trim();
+
+            if (name.isEmpty() || bio.isEmpty()) {
+                Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+            } else {
+                // Send data back to AccountFragment
+                Bundle result = new Bundle();
+                result.putString("name", name);
+                result.putString("bio", bio);
+
+                getParentFragmentManager().setFragmentResult("profileUpdate", result);
+
+                // Show confirmation message
+                Toast.makeText(getContext(), "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+
+                // Kembali ke AccountFragment
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
         });
 
         return view;

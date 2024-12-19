@@ -14,45 +14,49 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
-    private EditText editTextEmail, editTextPassword;
-    private Button buttonLogin;
-    private TextView textViewSignUp;
+    private EditText editTextFullName, editTextEmail, editTextPassword;
+    private Button buttonRegister;
+    private TextView textViewLogin;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
+        editTextFullName = findViewById(R.id.editTextFullName);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
-        buttonLogin = findViewById(R.id.buttonLogin);
-        textViewSignUp = findViewById(R.id.textViewSignUp);
+        buttonRegister = findViewById(R.id.buttonRegister);
+        textViewLogin = findViewById(R.id.textViewLogin);
         progressBar = findViewById(R.id.progressBar);
 
         progressBar.setVisibility(View.GONE);
 
-        // Login button action
-        buttonLogin.setOnClickListener(v -> loginUser());
+        buttonRegister.setOnClickListener(v -> registerUser());
 
-        // Navigate to Register
-        textViewSignUp.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+        textViewLogin.setOnClickListener(v -> {
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             finish();
         });
     }
 
-    private void loginUser() {
+    private void registerUser() {
+        String fullName = editTextFullName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(fullName)) {
+            editTextFullName.setError("Full Name is required!");
+            return;
+        }
 
         if (TextUtils.isEmpty(email)) {
             editTextEmail.setError("Email is required!");
@@ -64,29 +68,24 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        if (password.length() < 6) {
+            editTextPassword.setError("Password must be at least 6 characters!");
+            return;
+        }
+
         progressBar.setVisibility(View.VISIBLE);
 
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     progressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                         finish();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Authentication Failed: " + task.getException().getMessage(),
+                        Toast.makeText(RegisterActivity.this, "Registration Failed: " + task.getException().getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }
                 });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-        }
     }
 }

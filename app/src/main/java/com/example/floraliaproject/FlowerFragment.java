@@ -1,73 +1,109 @@
 package com.example.floraliaproject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class FlowerFragment extends Fragment {
 
-    private RecyclerView rvFlowers;
-    private ArrayList<Flower> flowerList = new ArrayList<>();
-    private boolean isGridLayout = false;
+    private RecyclerView recyclerView;
+    private EditText edSearch;
+    private Button btnSearch;
+    private ProgressBar progressBar;
 
+    private List<Flower> flowerList;
+    private FlowerAdapter flowerAdapter;
+
+    private FirebaseFirestore db;
+
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_flower, container, false);
 
-        rvFlowers = view.findViewById(R.id.rv_flowers);
-        rvFlowers.setHasFixedSize(true);
+        recyclerView = view.findViewById(R.id.recyclerViewFlowers);
+        edSearch = view.findViewById(R.id.edSearch);
+        btnSearch = view.findViewById(R.id.btnSearch);
+        progressBar = view.findViewById(R.id.progressBar);
 
-        flowerList.addAll(FlowerDetailFragment.getListData());
+        db = FirebaseFirestore.getInstance();
 
-        ListFlowerAdapter adapter = new ListFlowerAdapter(flowerList);
-        rvFlowers.setAdapter(adapter);
+        flowerList = new ArrayList<>();
+        flowerAdapter = new FlowerAdapter(flowerList, getContext());
 
-        adapter.setOnItemClickCallback(data ->
-                Toast.makeText(getContext(), "You selected " + data.getName(), Toast.LENGTH_SHORT).show()
-        );
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setAdapter(flowerAdapter);
 
-        setLayoutManager(isGridLayout);
+        loadFlowers(); // Load semua bunga saat fragment dibuka
 
-        setHasOptionsMenu(true);
+        btnSearch.setOnClickListener(v -> performSearch());
 
         return view;
     }
 
-    private void setLayoutManager(boolean isGrid) {
-        if (isGrid) {
-            GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 5, RecyclerView.HORIZONTAL, false);
-            rvFlowers.setLayoutManager(layoutManager);
-        } else {
-            rvFlowers.setLayoutManager(new LinearLayoutManager(getContext()));
-        }
+    private void loadFlowers() {
+        progressBar.setVisibility(View.VISIBLE);
+
+        db.collection("flowers")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    flowerList.clear();
+                    flowerList.addAll(queryDocumentSnapshots.toObjects(Flower.class));
+                    flowerAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Failed to load data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                });
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu, menu);
-    }
+    private void performSearch() {
+        String query = edSearch.getText().toString().trim().toLowerCase();
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_list) {
-            setLayoutManager(false);
-        } else if (item.getItemId() == R.id.action_grid) {
-            setLayoutManager(true);
+        if (query.isEmpty()) {
+            loadFlowers(); // Jika input kosong, tampilkan semua bunga
+            return;
         }
-        return super.onOptionsItemSelected(item);
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        db.collection("flowers")
+                .whereEqualTo("name", query)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        flowerList.clear();
+                        flowerList.addAll(queryDocumentSnapshots.toObjects(Flower.class));
+                        flowerAdapter.notifyDataSetChanged();
+                        Log.d("SearchResults", "Found: " + queryDocumentSnapshots.size() + " results");
+                    } else {
+                        Log.d("SearchResults", "No results found for query: " + query);
+                        Toast.makeText(getContext(), "No results found", Toast.LENGTH_SHORT).show();
+                    }
+                    progressBar.setVisibility(View.GONE);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("SearchError", "Failed to search: " + e.getMessage());
+                    Toast.makeText(getContext(), "Failed to search: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                });
     }
 }
