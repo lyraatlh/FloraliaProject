@@ -46,7 +46,10 @@ public class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.FlowerView
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, FlowerDetailActivity.class);
-            intent.putExtra("flowerName", flower.getName());
+            intent.putExtra("name", flower.getName());
+            intent.putExtra("scientificName", flower.getScientificName());
+            intent.putExtra("description", flower.getDescription());
+            intent.putExtra("imageUrl", flower.getImageUrl());
             context.startActivity(intent);
         });
     }

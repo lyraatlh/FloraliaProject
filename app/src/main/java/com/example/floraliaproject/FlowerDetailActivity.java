@@ -2,6 +2,7 @@ package com.example.floraliaproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
         // Get data from intent
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
+        Log.d("FlowerDetail", "Received name: " + name);
         String scientificName = intent.getStringExtra("scientificName");
         String description = intent.getStringExtra("description");
         String imageUrl = intent.getStringExtra("imageUrl");
@@ -66,12 +68,18 @@ public class FlowerDetailActivity extends AppCompatActivity {
                 .addOnSuccessListener(querySnapshot -> {
                     if (!querySnapshot.isEmpty()) {
                         Flower flower = querySnapshot.toObjects(Flower.class).get(0);
-                        textViewName.setText(flower.getName());
-                        textViewScientificName.setText(flower.getScientificName());
-                        textViewDescription.setText(flower.getDescription());
-                        Picasso.get().load(flower.getImageUrl()).into(imageViewFlower);
+                        if (flower != null) {
+                            textViewName.setText(flower.getName());
+                            textViewScientificName.setText(flower.getScientificName());
+                            textViewDescription.setText(flower.getDescription());
+                            Picasso.get().load(flower.getImageUrl()).into(imageViewFlower);
+                        }
+                    } else {
+                        Toast.makeText(this, "Flower not found", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .addOnFailureListener(e -> Toast.makeText(this, "Failed to load details", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to load details: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }
